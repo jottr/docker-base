@@ -12,7 +12,7 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
 # REPOS
-RUN apt-get -y update && date
+RUN apt-get -y update 
 RUN apt-get install -y -q software-properties-common
 RUN add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
 RUN apt-get -y update
@@ -34,7 +34,7 @@ ENV TZ Europe/Berlin
 RUN apt-get install -y -q vim-tiny
 
 # TOOLS
-RUN apt-get install -y -q curl git make wget
+RUN apt-get install -y -q git make wget curl
 
 
 ## SUPERVISOR
@@ -43,15 +43,9 @@ RUN apt-get install -y -q supervisor
 ## SSH 
 RUN apt-get install -y -q openssh-server
 RUN mkdir -p /var/run/sshd
- 
-
-
 
 # CONFIGURATION & FILES
 
-
-## MYSQL
-#RUN mysqld & sleep 2 && mysqladmin create mydb
 
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
